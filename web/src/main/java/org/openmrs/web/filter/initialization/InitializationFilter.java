@@ -9,6 +9,7 @@
  */
 package org.openmrs.web.filter.initialization;
 
+import io.github.pixee.security.ZipSecurity;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -1095,7 +1096,7 @@ public class InitializationFilter extends StartupFilter {
 		File tempFile = null;
 		FileOutputStream fileOut = null;
 		try {
-			ZipInputStream zipIn = new ZipInputStream(in);
+			ZipInputStream zipIn = ZipSecurity.createHardenedInputStream(in);
 			zipIn.getNextEntry();
 			
 			tempFile = File.createTempFile("testDataSet", "dump");
