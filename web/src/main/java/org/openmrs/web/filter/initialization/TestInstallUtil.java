@@ -9,6 +9,7 @@
  */
 package org.openmrs.web.filter.initialization;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -78,7 +79,7 @@ public class TestInstallUtil {
 		}
 		
 		try {
-			proc = Runtime.getRuntime().exec(command);
+			proc = SystemCommand.runCommand(Runtime.getRuntime(), command);
 			try {
 				br = new BufferedReader(new InputStreamReader(proc.getErrorStream(), StandardCharsets.UTF_8));
 				String line;

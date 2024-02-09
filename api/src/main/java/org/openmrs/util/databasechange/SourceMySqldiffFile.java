@@ -9,6 +9,7 @@
  */
 package org.openmrs.util.databasechange;
 
+import io.github.pixee.security.SystemCommand;
 import liquibase.change.custom.CustomTaskChange;
 import liquibase.database.Database;
 import liquibase.database.DatabaseConnection;
@@ -212,8 +213,8 @@ public class SourceMySqldiffFile implements CustomTaskChange {
 			wd = null;
 		}
 		
-		Process p = (wd != null) ? Runtime.getRuntime().exec(cmdWithArguments, null, wd)
-		        : Runtime.getRuntime().exec(cmdWithArguments);
+		Process p = (wd != null) ? SystemCommand.runCommand(Runtime.getRuntime(), cmdWithArguments, null, wd)
+		        : SystemCommand.runCommand(Runtime.getRuntime(), cmdWithArguments);
 		
 		out.append("Normal cmd output:\n");
 		Reader reader = new InputStreamReader(p.getInputStream(), StandardCharsets.UTF_8);
