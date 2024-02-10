@@ -9,6 +9,7 @@
  */
 package org.openmrs.util;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -96,7 +97,7 @@ public class HttpClient {
 			// Get the response
 			rd = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
 			String line;
-			while ((line = rd.readLine()) != null) {
+			while ((line = BoundedLineReader.readLine(rd, 5_000_000)) != null) {
 				response = String.format("%s%s%n", response, line);
 			}
 			
