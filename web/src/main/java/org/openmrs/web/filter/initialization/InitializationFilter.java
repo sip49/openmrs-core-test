@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -1098,7 +1099,7 @@ public class InitializationFilter extends StartupFilter {
 			ZipInputStream zipIn = new ZipInputStream(in);
 			zipIn.getNextEntry();
 			
-			tempFile = File.createTempFile("testDataSet", "dump");
+			tempFile = Files.createTempFile("testDataSet", "dump").toFile();
 			fileOut = new FileOutputStream(tempFile);
 			
 			IOUtils.copy(zipIn, fileOut);

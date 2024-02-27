@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Base64.Encoder;
@@ -142,7 +143,7 @@ public class TestInstallUtil {
 		boolean successfullyAdded = true;
 		
 		try {
-			tempFile = File.createTempFile("modules", null);
+			tempFile = Files.createTempFile("modules", null).toFile();
 			out = new FileOutputStream(tempFile);
 			IOUtils.copy(in, out);
 			zipFile = new ZipFile(tempFile);

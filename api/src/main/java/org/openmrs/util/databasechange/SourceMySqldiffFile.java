@@ -9,6 +9,7 @@
  */
 package org.openmrs.util.databasechange;
 
+import java.nio.file.Files;
 import liquibase.change.custom.CustomTaskChange;
 import liquibase.database.Database;
 import liquibase.database.DatabaseConnection;
@@ -92,7 +93,7 @@ public class SourceMySqldiffFile implements CustomTaskChange {
 		// copy the file from the classpath to a real file
 		File tmpOutputFile = null;
 		try {
-			tmpOutputFile = File.createTempFile(sqlFile, "tmp");
+			tmpOutputFile = Files.createTempFile(sqlFile, "tmp").toFile();
 			
 			fileOpener = new ClassLoaderFileOpener(OpenmrsClassLoader.getInstance());
 			try (InputStreamList sqlFileInputStream = fileOpener.openStreams(null, sqlFile);

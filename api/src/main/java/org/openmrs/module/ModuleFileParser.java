@@ -9,6 +9,7 @@
  */
 package org.openmrs.module;
 
+import java.nio.file.Files;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -155,7 +156,7 @@ public class ModuleFileParser {
 	private File createTempFile(String prefix, String suffix) {
 		File file;
 		try {
-			file = File.createTempFile(prefix, suffix);
+			file = Files.createTempFile(prefix, suffix).toFile();
 		}
 		catch (IOException e) {
 			throw new ModuleException(messageSourceService.getMessage("Module.error.cannotCreateFile"), e);
