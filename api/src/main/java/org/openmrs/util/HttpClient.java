@@ -9,6 +9,8 @@
  */
 package org.openmrs.util;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -76,7 +78,7 @@ public class HttpClient {
 
 				// get redirect url from "location" header field
 				String newUrl = connection.getHeaderField("Location");
-				connection = (HttpURLConnection)new URL(newUrl).openConnection();
+				connection = (HttpURLConnection)Urls.create(newUrl, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
 
 				log.info("Redirection to : " + newUrl);
 
