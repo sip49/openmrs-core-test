@@ -9,6 +9,8 @@
  */
 package org.openmrs.web.filter.initialization;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -228,7 +230,7 @@ public class TestInstallUtil {
 	 */
 	protected static boolean testConnection(String urlString) {
 		try {
-			HttpURLConnection urlConnect = (HttpURLConnection) new URL(urlString).openConnection();
+			HttpURLConnection urlConnect = (HttpURLConnection) Urls.create(urlString, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
 			//wait for 15sec
 			urlConnect.setConnectTimeout(15000);
 			urlConnect.setUseCaches(false);
@@ -273,7 +275,7 @@ public class TestInstallUtil {
 	}
 	private static HttpURLConnection createConnection(String url) 
 			throws IOException, MalformedURLException {
-		final HttpURLConnection result = (HttpURLConnection) new URL(url).openConnection();
+		final HttpURLConnection result = (HttpURLConnection) Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS).openConnection();
 		result.setRequestMethod("POST");
 		result.setConnectTimeout(15000);
 		result.setUseCaches(false);

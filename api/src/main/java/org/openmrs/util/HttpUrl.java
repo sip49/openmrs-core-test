@@ -9,6 +9,8 @@
  */
 package org.openmrs.util;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -29,7 +31,7 @@ public class HttpUrl {
 			throw new MalformedURLException("Not a valid http(s) url");
 		}
 		
-		this.url = new URL(url);
+		this.url = Urls.create(url, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
 	}
 	
 	public HttpURLConnection openConnection() throws IOException {
