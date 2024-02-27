@@ -20,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -97,7 +98,7 @@ public class ModuleUtil {
 							try {
 								// get and make a temp directory if necessary
 								String tmpDir = System.getProperty("java.io.tmpdir");
-								File expandedFile = File.createTempFile(file.getName() + "-", ".omod", new File(tmpDir));
+								File expandedFile = Files.createTempFile(new File(tmpDir).toPath(), file.getName() + "-", ".omod").toFile();
 								
 								// pull the name from the absolute path load attempt
 								FileOutputStream outStream = new FileOutputStream(expandedFile, false);
@@ -1168,7 +1169,7 @@ public class ModuleUtil {
 		JarFile innerJarFile = null;
 		InputStream innerInputStream = null;
 		try {
-			tempFile = File.createTempFile("tempFile", "jar");
+			tempFile = Files.createTempFile("tempFile", "jar").toFile();
 			tempOut = new FileOutputStream(tempFile);
 			ZipEntry innerJarFileEntry = outerJarFile.getEntry(innerJarFileLocation);
 			if (innerJarFileEntry != null) {
