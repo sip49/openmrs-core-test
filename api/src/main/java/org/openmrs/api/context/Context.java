@@ -593,16 +593,16 @@ public class Context {
 		String prefix = "mail.";
 		for (GlobalProperty gp : getAdministrationService().getGlobalPropertiesByPrefix(prefix)) {
 			// Historically, some mail properties defined with underscores, support these for legacy compatibility
-			if (gp.getProperty().equals("mail.transport_protocol")) {
+			if ("mail.transport_protocol".equals(gp.getProperty())) {
 				p.setProperty("mail.transport.protocol", gp.getPropertyValue());
 			}
-			else if (gp.getProperty().equals("mail.smtp_host")) {
+			else if ("mail.smtp_host".equals(gp.getProperty())) {
 				p.setProperty("mail.smtp.host", gp.getPropertyValue());
 			}
-			else if (gp.getProperty().equals("mail.smtp_port")) {
+			else if ("mail.smtp_port".equals(gp.getProperty())) {
 				p.setProperty("mail.smtp.port", gp.getPropertyValue());
 			}
-			else if (gp.getProperty().equals("mail.smtp_auth")) {
+			else if ("mail.smtp_auth".equals(gp.getProperty())) {
 				p.setProperty("mail.smtp.auth", gp.getPropertyValue());
 			}
 			else {
